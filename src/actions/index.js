@@ -1,4 +1,3 @@
-
 import firebase from 'firebase'
 import {
   EMAIL_CHANGED,
