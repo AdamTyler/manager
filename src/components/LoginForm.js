@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Card, CardSection, Input, Button } from './common'
+import { Text } from 'react-native'
+import { Card, CardSection, Input, Button, Spinner } from './common'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 
 class LoginForm extends Component {
   render() {
-    console.log(this.props)
     return (
       <Card>
         <CardSection>
@@ -27,14 +27,18 @@ class LoginForm extends Component {
           />
         </CardSection>
 
-        <CardSection>
-          <Button>
-            Log In
-          </Button>
+        <Text style={styles.errorStyle}>{this.props.error}</Text>
 
+        <CardSection>
+          {this.renderButton()}
         </CardSection>
       </Card>
     )
+  }
+
+  logIn() {
+    let { email, password } = this.props
+    this.props.loginUser({email, password})
   }
 
   onEmailChange(text) {
@@ -44,13 +48,34 @@ class LoginForm extends Component {
   onPasswordChange(text) {
     this.props.passwordChanged(text)
   }
+
+  renderButton() {
+    if (this.props.loading) {
+      return <Spinner />
+    }
+    return (
+      <Button onPress={this.logIn.bind(this)}>
+        Log In
+      </Button>
+    )
+  }
+}
+
+const styles = {
+  errorStyle: {
+    color: 'red',
+    fontSize: 20,
+    alignSelf: 'center'
+  }
 }
 
 const mapStateToProps = state => {
-  const { email, password } = state.auth
+  const { email, password, error, loading } = state.auth
   return {
     email,
-    password
+    password,
+    error,
+    loading
   }
 }
 
