@@ -1,20 +1,14 @@
 import {
-  EMPLOYEE_UPDATE
+  EMPLOYEES_FETCH_SUCCESS
 } from '../actions/types'
 
 const initialState = {
-  name: '',
-  phone: '',
-  shift: ''
 }
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case EMPLOYEE_UPDATE:
-      return {
-        ...state,
-        [action.payload.prop]: action.payload.value
-      }
+    case EMPLOYEES_FETCH_SUCCESS:
+      return action.payload
     default:
       return state
   }
