@@ -19,7 +19,6 @@ class LoginForm extends Component {
 
         <CardSection>
           <Input
-            ref={input => this.password = input}
             secureTextEntry
             label="Password"
             placeholder="password"
@@ -43,11 +42,7 @@ class LoginForm extends Component {
   }
 
   onEmailChange(text) {
-    // if (text.match(/.+\t/)) {
-    //   this.refs.password.focus()
-    // } else {
-      this.props.emailChanged(text)
-    // }
+    this.props.emailChanged(text)
   }
 
   onPasswordChange(text) {
